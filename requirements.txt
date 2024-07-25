@@ -1,5 +1,4 @@
 # mysql-client-core-8.0
 # mariadb-client-core-10.6
 mysql-server
-# for include <mysql/mysql.h>
-libmysqlclient-dev
+# for include <mysql/mysql.h> libmysqlclient-dev

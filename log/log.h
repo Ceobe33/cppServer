@@ -22,6 +22,7 @@ class Log {
 
     static void *flush_log_thread(void *args) {
         Log::get_instance()->async_write_log();
+        return nullptr;
     }
 
     //可选择的参数有日志文件、日志缓冲区大小、最大行数以及最长日志条队列
@@ -44,6 +45,7 @@ class Log {
             fputs(single_log.c_str(), m_fp);
             m_mutex.unlock();
         }
+        return nullptr;
     }
 
    private:
