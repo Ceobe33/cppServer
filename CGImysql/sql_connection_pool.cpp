@@ -31,6 +31,7 @@ void connection_pool::init(string url, string User, string PassWord,
     this->PassWord = PassWord;
     this->DatabaseName = DBName;
 
+    printf("conn pool, MaxConn: %d\n", MaxConn);
     lock.lock();
     for (int i = 0; i < MaxConn; i++) {
         MYSQL *con = NULL;
@@ -40,6 +41,7 @@ void connection_pool::init(string url, string User, string PassWord,
             cout << "Error:" << mysql_error(con);
             exit(1);
         }
+        printf("connecting to database: %s\n", DBName.c_str());
         con =
             mysql_real_connect(con, url.c_str(), User.c_str(), PassWord.c_str(),
                                DBName.c_str(), Port, NULL, 0);
@@ -48,14 +50,17 @@ void connection_pool::init(string url, string User, string PassWord,
             cout << "Error: " << mysql_error(con);
             exit(1);
         }
+        printf("finish connect\n");
         connList.push_back(con);
         ++FreeConn;
     }
+    printf("end for loop\n");
 
     reserve = sem(FreeConn);
 
     this->MaxConn = FreeConn;
 
+    printf("conn poop unlock\n");
     lock.unlock();
 }
 

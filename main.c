@@ -23,7 +23,7 @@
 #define SYNLOG  //同步写日志
 //#define ASYNLOG //异步写日志
 
-//#define listenfdET //边缘触发非阻塞
+// #define listenfdET //边缘触发非阻塞
 #define listenfdLT //水平触发阻塞
 
 //这三个函数在http_conn.cpp中定义，改变链接属性
@@ -105,7 +105,7 @@ int main(int argc, char *argv[])
 
     //创建数据库连接池
     connection_pool *connPool = connection_pool::GetInstance();
-    connPool->init("127.0.0.1", "aaron", "passwd", "aarondb", 3306, 8);
+    connPool->init("localhost", "root", "root", "aarondb", 3306, 8);
 
     //创建线程池
     threadpool<http_conn> *pool = NULL;
@@ -115,6 +115,7 @@ int main(int argc, char *argv[])
     }
     catch (...)
     {
+        printf("create thred pool failed.\n");
         return 1;
     }
 

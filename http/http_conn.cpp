@@ -10,7 +10,7 @@
 //#define connfdET //边缘触发非阻塞
 #define connfdLT  //水平触发阻塞
 
-//#define listenfdET //边缘触发非阻塞
+// #define listenfdET  //边缘触发非阻塞
 #define listenfdLT  //水平触发阻塞
 
 //定义http响应的一些状态信息
@@ -29,7 +29,7 @@ const char *error_500_form =
     "There was an unusual problem serving the request file.\n";
 
 //当浏览器出现连接重置时，可能是网站根目录出错或http响应格式出错或者访问的文件中内容完全为空
-const char *doc_root = "/home/aaron/TinyWebServer/root";
+const char *doc_root = "/home/aaron/cppServer/root";
 
 //将表中的用户名和密码放入map
 map<string, string> users;
@@ -352,6 +352,7 @@ http_conn::HTTP_CODE http_conn::process_read() {
 http_conn::HTTP_CODE http_conn::do_request() {
     strcpy(m_real_file, doc_root);
     int len = strlen(doc_root);
+    LOG_INFO("doc_root = %s\n", doc_root);
     // printf("m_url:%s\n", m_url);
     const char *p = strrchr(m_url, '/');
 
